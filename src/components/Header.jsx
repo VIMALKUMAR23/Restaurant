@@ -1,9 +1,12 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { searchRestaurant } from "../redux/restaurantSlice";
 
 function Header() {
+  const dispatch = useDispatch();
   return (
     <>
       <Navbar variant="dark mt-3">
@@ -20,9 +23,16 @@ function Header() {
                 />{" "}
                 Food <span className="text-warning">Circle</span>
               </Navbar.Brand>
-              <input type="text" className="form-control ms-5 w-100" placeholder="Search by Neibhorhood" />
             </div>
           </Link>
+          <form action="" className="d-flex ms-auto">
+            <input
+              onChange={(e) => dispatch(searchRestaurant(e.target.value))}
+              type="text"
+              className="form-control ms-4 w-100 "
+              placeholder="Search by Neigbhorhood"
+            />
+          </form>
         </Container>
       </Navbar>
     </>

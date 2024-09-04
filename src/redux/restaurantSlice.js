@@ -23,17 +23,26 @@ const restaurantSlice = createSlice({
     builder.addCase(fetchRestaurant.fulfilled, (state, action) => {
       state.loading = false;
       state.allRestaurant = action.payload;
+      state.searchRestaurant = action.payload;
       state.error = "";
     });
     builder.addCase(fetchRestaurant.rejected, (state, action) => {
       state.loading = false;
       state.allRestaurant = [];
       state.error = action.error.message;
-    }); 
+    });
+  },
+  reducers: {
+    searchRestaurant: (state, action) => {
+      state.allRestaurant.restaurants = state.searchRestaurant?.restaurants.filter((item) =>
+        item.neighborhood.toLowerCase().includes(action.payload)
+      );
+    },
   },
 });
 
 export default restaurantSlice.reducer;
+export const { searchRestaurant } = restaurantSlice.actions;
 //add
 export { fetchRestaurant };
 // Redux is a Syncronous operation
